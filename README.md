@@ -1,2 +1,2 @@
 # solsight
-Generate insight from solana transactions data 
+Generate insight from solana transactions data
