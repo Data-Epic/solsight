@@ -29,7 +29,7 @@ resources:
       Type: AWS::S3::Bucket
       DeletionPolicy: Retain
       Properties:
-        BucketName: ${env:STAGE}-serverless-kinesis-firehose-bucket
+        BucketName: ${env:STAGE}-solana-io
     ServerlessKinesisFirehose:
       Type: AWS::KinesisFirehose::DeliveryStream
       Properties:
@@ -41,10 +41,10 @@ resources:
             - - 'arn:aws:s3:::'
               - Ref: ServerlessKinesisFirehoseBucket
           BufferingHints:
-            IntervalInSeconds: "60"
-            SizeInMBs: "1"
-          CompressionFormat: "UNCOMPRESSED"
-          Prefix: "raw/"
+            IntervalInSeconds: "900"
+            SizeInMBs: "10"
+          CompressionFormat: "SNAPPY"
+          Prefix: "firehose"
           RoleARN: { Fn::GetAtt: [ FirehoseToS3Role, Arn ] }
 
 
