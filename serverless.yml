@@ -1,5 +1,5 @@
-org: Data-Epic
-app: sol-sight-serverless
+# org: Data-Epic
+# app: sol-sight-serverless
 service: sol-sight-serverless
 
 frameworkVersion: '3'
@@ -7,17 +7,11 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: python3.9
-  iamRoleStatements:
-  - Effect: Allow
-    Action:
-      - firehose:DeleteDeliveryStream
-      - firehose:PutRecord
-      - firehose:PutRecordBatch
-      - firehose:UpdateDestination
-    Resource: '*'
 
-functions:
-  hello:
-    handler: datalake/api.hello
+functions: ${file(datalake/api.yml)}
 
 resources: ${file(resources/serverless.yml)}
+
+plugins:
+  - serverless-localstack
+  - serverless-iam-roles-per-function
