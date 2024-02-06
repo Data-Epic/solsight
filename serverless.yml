@@ -1,0 +1,26 @@
+service: uploadToS3
+
+frameworkVersion: ">=1.1.0"
+
+custom:
+  bucket: solsight
+  localstack:
+    stages:
+      - local
+    host: http://localhost
+    endpointFile: resources/localstack/localstack_endpoints.json
+    lambda:
+      mountCode: True
+provider:
+  name: aws
+  runtime: python3.10
+
+functions:
+  ingest:
+    handler: handler.main
+    timeout: 360
+    environment:
+      BUCKET_NAME: ${self:custom.bucket}
+
+plugins:
+  - serverless-localstack
