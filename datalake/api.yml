@@ -1,12 +1,28 @@
-functions:
-  hello:
-    handler: datalake/api.hello
-    iamRoleStatementsName: hello-iam-role #optional custom role name setting instead of the default generated one
-    iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - firehose:DeleteDeliveryStream
-        - firehose:PutRecord
-        - firehose:PutRecordBatch
-        - firehose:UpdateDestination
-      Resource: '*'
+# functions:
+#   hello:
+#     handler: datalake/api.hello
+#     iamRoleStatementsName: hello-iam-role #optional custom role name setting instead of the default generated one
+#     iamRoleStatements:
+#     - Effect: Allow
+#       Action:
+#         - firehose:DeleteDeliveryStream
+#         - firehose:PutRecord
+#         - firehose:PutRecordBatch
+#         - firehose:UpdateDestination
+#       Resource: '*'
+
+
+ingest:
+  handler: handler.main
+  timeout: 360
+  environment:
+    BUCKET_NAME: ${self:custom.bucket}
+  iamRoleStatementsName: hello-iam-role #optional custom role name setting instead of the default generated one
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - firehose:DeleteDeliveryStream
+      - firehose:PutRecord
+      - firehose:PutRecordBatch
+      - firehose:UpdateDestination
+    Resource: '*'

@@ -8,6 +8,16 @@ provider:
   name: aws
   runtime: python3.9
 
+custom:
+  bucket: solsight
+  localstack:
+    stages:
+      - local
+    host: http://localhost
+    endpointFile: resources/localstack/localstack_endpoints.json
+    lambda:
+      mountCode: True
+
 functions: ${file(datalake/api.yml)}
 
 resources: ${file(resources/serverless.yml)}
