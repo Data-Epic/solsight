@@ -18,10 +18,11 @@ var/
 *__pycache__/
 
 # Serverless directories
-.serverless
-.pytest_cache
-node_modules
-package-lock.json
-package.json
-volume
-.vscode
+*.serverless
+*.pytest_cache
+*node_modules
+*package-lock.json
+*package.json
+*volume
+*.vscode
+*.DS_Store
