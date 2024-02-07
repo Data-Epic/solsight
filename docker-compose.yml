@@ -1,0 +1,29 @@
+version: '2.1'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+    environment:
+    #allow all services
+      - SERVICES= 
+      #- SERVICES=lambda,dynamodb,cloudformation,s3,sts,iam,apigateway,ecr,logs
+      - DEFAULT_REGION=us-east-1
+      - AWS_XRAY_SDK_ENABLED=true
+      - DEBUG=1
+      - DATA_DIR=${DATA_DIR- }
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - LAMBDA_EXECUTOR= docker
+      - LAMBDA_REMOTE_DOCKER=false
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - PROVIDER_OVERRIDE_LAMBDA=asf
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test 
+      - LAMBDA_RUNTIME_ENVIRONMENT_TIMEOUT=360
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+      
