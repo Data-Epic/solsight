@@ -20,3 +20,8 @@ var/
 # Serverless directories
 .serverless
 .pytest_cache
+node_modules
+package-lock.json
+package.json
+volume
+.vscode
