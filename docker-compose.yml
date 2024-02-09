@@ -4,12 +4,12 @@ services:
   localstack:
     image: localstack/localstack:latest
     ports:
-      - "127.0.0.1:4566:4566"            # LocalStack Gateway
-      - "127.0.0.1:4510-4559:4510-4559"  # external services port range
+      # - "127.0.0.1:4566:4566"            # LocalStack Gateway
+      - "127.0.0.1:4510-4599:4510-4599"  # external services port range
     environment:
     #allow all services
       - SERVICES= 
-      #- SERVICES=lambda,dynamodb,cloudformation,s3,sts,iam,apigateway,ecr,logs
+      # - SERVICES=lambda,dynamodb,cloudformation,s3,sts,iam,apigateway,logs,firehose,cloudwatch,kinesis
       - DEFAULT_REGION=us-east-1
       - AWS_XRAY_SDK_ENABLED=true
       - DEBUG=1
