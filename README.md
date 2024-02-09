@@ -19,3 +19,7 @@ To invoke the ingest function, run
 ```bash
 sls invoke local --function ingest
 ```
+
+To view the bucket details, open the url `http://localhost:4566/solsight-solana-io` in browser.
+
+![list-bucket](/images/list-bucket.png)
