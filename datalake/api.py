@@ -5,10 +5,12 @@ import solana
 import json
 from solana.rpc.async_api import AsyncClient
 from solana.exceptions import SolanaRpcException
+import boto3
 # import nest_asyncio
 
 
 mainnet_url = "https://api.mainnet-beta.solana.com"
+client = boto3.client("firehose", endpoint_url="http://localhost:4566")
 
 
 def hello(event, context):
@@ -43,8 +45,10 @@ async def stream_data(url):
 
 def run(event, context):
     result = asyncio.run(stream_data(mainnet_url))
+    x = client.put_record(Record={"Data": json.dumps(
+        result)}, DeliveryStreamName="local-serverless-kinesis-firehose")
     print("Data sent to firehose successfully!")
-    return result
+    return x
 
 
 # if __name__ == "__main__":
