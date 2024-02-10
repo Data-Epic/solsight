@@ -17,6 +17,13 @@ If you don't have docker already installed, you can install it following the ins
 
 If you don't have serverless already installed, you can install it following the instructions [here](https://www.serverless.com/framework/docs/getting-started)
 
+## Using Virtual Environment
+You can use any virtual environment of your choice (conda, poetry, virtualenv etc).
+After creating a virtual environment. Run the following to install the libraries required to run the project.
+```bash
+pip3 install -r requirements.txt
+```
+
 ## Deployment
 Switch to serverless-file-setup branch. You can use `git fetch` to retrieve branch to local system.
 
