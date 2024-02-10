@@ -1,0 +1,27 @@
+# org: Data-Epic
+# app: sol-sight-serverless
+service: sol-sight-serverless
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.10
+
+custom:
+  bucket: solsight
+  localstack:
+    stages:
+      - local
+    host: http://localhost
+    endpointFile: resources/localstack/localstack_endpoints.json
+    lambda:
+      mountCode: True
+
+functions: ${file(datalake/api.yml)}
+
+resources: ${file(resources/serverless.yml)}
+
+plugins:
+  - serverless-localstack
+  - serverless-iam-roles-per-function

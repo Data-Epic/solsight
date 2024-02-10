@@ -1,0 +1,8 @@
+aioresponses
+autopep8
+pytest
+aiobotocore
+aiohttp
+solana
+asyncio
+boto3
