@@ -6,20 +6,12 @@ import json
 from solana.rpc.async_api import AsyncClient
 from solana.exceptions import SolanaRpcException
 import boto3
-# import nest_asyncio
+import logging
 
+logging.basicConfig(level=logging.INFO)
 
 mainnet_url = "https://api.mainnet-beta.solana.com"
 client = boto3.client("firehose", endpoint_url="http://localhost:4566")
-
-
-def hello(event, context):
-    body = {
-        "message": "Go Serverless v3.0! Your function executed successfully!",
-        "input": event,
-    }
-
-    return {"statusCode": 200, "body": json.dumps(body)}
 
 
 async def fetch_block(url):
@@ -29,7 +21,7 @@ async def fetch_block(url):
             slot = json.loads(latest_blockhash.to_json())["result"]
         return slot  # True
     except SolanaRpcException as e:
-        print(e)
+        logging(e)
         return None
 
 
@@ -37,7 +29,6 @@ async def stream_data(url):
     while True:
         data = await fetch_block(url)
         if data is not None:
-            # print(data)
             return data  # Process or handle the data as needed
 
     # await asyncio.sleep(1)
@@ -47,9 +38,5 @@ def run(event, context):
     result = asyncio.run(stream_data(mainnet_url))
     x = client.put_record(Record={"Data": json.dumps(
         result)}, DeliveryStreamName="local-serverless-kinesis-firehose")
-    print("Data sent to firehose successfully!")
+    logging("Data sent to firehose successfully!")
     return x
-
-
-# if __name__ == "__main__":
-#     run()
