@@ -18,7 +18,7 @@ If you don't have docker already installed, you can install it following the ins
 If you don't have serverless already installed, you can install it following the instructions [here](https://www.serverless.com/framework/docs/getting-started)
 
 ## Deployment
-Switch to serverless-file-setup branch. You can use `git fetch` to retrieve branch to local system.
+Switch to `data-ingestion`. You can use `git fetch` to retrieve branch to local system.
 
 start docker using the following command to run it in detached mode.
 ```bash
