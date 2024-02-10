@@ -235,5 +235,5 @@ def run(event, context):
     result = asyncio.run(main())
     x = client.put_record(Record={"Data": json.dumps(
         result)}, DeliveryStreamName="local-serverless-kinesis-firehose")
-    logging("Data sent to firehose successfully!")
+    logging.info("Data sent to firehose successfully!")
     return x
