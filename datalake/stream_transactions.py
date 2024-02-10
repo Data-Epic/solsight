@@ -6,6 +6,9 @@ import json
 from solana.rpc.async_api import AsyncClient
 from solana.exceptions import SolanaRpcException, SolanaExceptionBase
 import boto3
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 mainnet_url = "https://api.mainnet-beta.solana.com"
@@ -225,12 +228,12 @@ async def main():
                 data["block_time"] = transactions["result"]["blockTime"]
                 # block number is parent slot + 1
                 data["block_number"] = transactions["result"]["parentSlot"] + 1
-                print(data)
+                return data
 
 
 def run(event, context):
     result = asyncio.run(main())
     x = client.put_record(Record={"Data": json.dumps(
         result)}, DeliveryStreamName="local-serverless-kinesis-firehose")
-    print("Data sent to firehose successfully!")
+    logging("Data sent to firehose successfully!")
     return x
