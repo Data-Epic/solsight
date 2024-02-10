@@ -21,7 +21,7 @@ async def fetch_block(url):
             slot = json.loads(latest_blockhash.to_json())["result"]
         return slot  # True
     except SolanaRpcException as e:
-        logging(e)
+        logging.warning(e)
         return None
 
 
@@ -38,5 +38,5 @@ def run(event, context):
     result = asyncio.run(stream_data(mainnet_url))
     x = client.put_record(Record={"Data": json.dumps(
         result)}, DeliveryStreamName="local-serverless-kinesis-firehose")
-    logging("Data sent to firehose successfully!")
+    logging.info("Data sent to firehose successfully!")
     return x
