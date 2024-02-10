@@ -32,7 +32,8 @@ sls deploy --stage local
 
 To invoke the ingest function, run
 ```bash
-sls invoke local --function ingest
+sls invoke local --function ingest-block
+sls invoke local --function ingest-transaction
 ```
 
 To view the bucket details, open the url `http://localhost:4566/solsight-solana-io` in browser.

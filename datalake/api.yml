@@ -1,10 +1,10 @@
 
-ingest:
-  handler: datalake/api.run
+ingest-block:
+  handler: datalake/stream_block.run
   timeout: 360
   environment:
     BUCKET_NAME: ${self:custom.bucket}-solana-io
-  iamRoleStatementsName: hello-iam-role #optional custom role name setting instead of the default generated one
+  iamRoleStatementsName: stream-block-iam-role #optional custom role name setting instead of the default generated one
   iamRoleStatements:
   - Effect: Allow
     Action:
@@ -13,9 +13,18 @@ ingest:
       - firehose:PutRecordBatch
       - firehose:UpdateDestination
     Resource: '*'
-  
-# push-test:
-#   handler: datalake/test_firehose.run
-#   timeout: 360
-#   environment:
-#     BUCKET_NAME: ${self:custom.bucket}-solana-io
+
+ingest-transaction:
+  handler: datalake/stream_transactions.run
+  timeout: 360
+  environment:
+    BUCKET_NAME: ${self:custom.bucket}-solana-io
+  iamRoleStatementsName: stream-transactions-iam-role #optional custom role name setting instead of the default generated one
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - firehose:DeleteDeliveryStream
+      - firehose:PutRecord
+      - firehose:PutRecordBatch
+      - firehose:UpdateDestination
+    Resource: '*'
